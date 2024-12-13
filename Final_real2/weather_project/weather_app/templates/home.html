@@ -12,5 +12,14 @@
         <a href="{% url 'login' %}" class="btn">Login</a>
         <a href="{% url 'signup' %}" class="btn">Signup</a>
     {% endif %}
+
+    <!-- 폼 추가 -->
+    <form method="post" action="/submit-url/">
+        {% csrf_token %}
+        <!-- 폼 필드 -->
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location">
+        <input type="submit" value="Submit">
+    </form>
 </div>
 {% endblock %}

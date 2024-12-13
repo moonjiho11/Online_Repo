@@ -12,7 +12,7 @@ ALLOWED_HOSTS = ['port-0-online-repo-m4mn6khjc2c41aa0.sel4.cloudtype.app', 'loca
 
 CSRF_TRUSTED_ORIGINS = [
     'https://port-0-online-repo-m4mn6khjc2c41aa0.sel4.cloudtype.app',
-    'https://yourdomain.com'
+    'https:// online-repo:8000'
 ]
 
 # Application definition

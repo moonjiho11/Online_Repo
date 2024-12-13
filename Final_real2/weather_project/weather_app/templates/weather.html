@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Weather{% endblock %}
+
+{% block content %}
+<h2 id="location">위치를 가져오는 중...</h2>
+<p id="updated_datetime" style="font-size: 0.9em; color: gray;">최근 업데이트: 정보 없음</p>
+
+<!-- 날씨 데이터 -->
+<ul id="weather_data">
+    <li>날씨 데이터를 가져오는 중...</li>
+</ul>
+
+<!-- 지도 -->
+<h3>현재 위치 (200m 이내의 오차 발생 가능)</h3>
+<div id="map" style="width: 100%; height: 400px;"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV9xHdsunjLlXR6M4DtlAjJ-8k6AOwD2k"></script>
+<script>
+    let map;
+    let marker;
+
+    function initMap(lat, lng) {
+        // 지도 초기화
+        const location = { lat: lat, lng: lng };
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: location,
+        });
+
+        // 마커 추가
+        marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: "현재 위치"
+        });
+    }
+
+    function updateWeather(lat, lng) {
+        fetch(`/get-weather-data?lat=${lat}&lng=${lng}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                // 데이터 업데이트
+                document.getElementById("location").innerText = data.location;
+                document.getElementById("updated_datetime").innerText = "최근 업데이트: " + data.updated_datetime;
+
+                // 날씨 데이터 표시
+                const weatherList = document.getElementById("weather_data");
+                weatherList.innerHTML = "";  // 기존 데이터 초기화
+                data.weather_data.forEach(item => {
+                    const li = document.createElement("li");
+                    li.innerText = `${item.category}: ${item.value}`;
+                    weatherList.appendChild(li);
+                });
+
+                // 지도와 마커 업데이트
+                const newLocation = { lat: data.lat, lng: data.lng };
+                map.setCenter(newLocation);
+                marker.setPosition(newLocation);
+            })
+            .catch(error => {
+                console.error("날씨 데이터를 가져오는 중 오류 발생:", error);
+            });
+    }
+
+    function getUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    // 지도 초기화 및 날씨 업데이트
+                    initMap(lat, lng);
+                    updateWeather(lat, lng);
+                },
+                error => {
+                    alert("위치 정보를 가져오는 데 실패했습니다.");
+                }
+            );
+        } else {
+            alert("브라우저가 위치 정보를 지원하지 않습니다.");
+        }
+    }
+
+    // 페이지 로드 시 사용자 위치 가져오기
+    window.onload = getUserLocation;
+</script>
+{% endblock %}

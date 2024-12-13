@@ -22,7 +22,7 @@ SECRET_KEY = 'django-insecure-o-j4mwdn3d4xahx0r8d27+bq17t#35&=25y79%!v5g+8dz%dmf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['port-0-online-repo-m4mn6khjc2c41aa0.sel4.cloudtype.app']
 
 
 CSRF_TRUSTED_ORIGINS = [

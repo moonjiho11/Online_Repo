@@ -7,11 +7,11 @@ SECRET_KEY = 'django-insecure-o-j4mwdn3d4xahx0r8d27+bq17t#35&=25y79%!v5g+8dz%dmf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['port-0-online-repo-m4mn6khjc2c41aa0.sel4.cloudtype.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://port-0-online-repo-m4mn6khjc2c41aa0.sel4.cloudtype.app',
+    '*',
    
 ]
 
@@ -31,7 +31,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

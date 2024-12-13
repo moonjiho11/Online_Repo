@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.timezone import localtime
+from django.views.decorators.csrf import csrf_protect
 
 # JSON 파일 저장 경로
 USER_JSON_FILE = "user_data.json"
@@ -41,6 +42,7 @@ GOOGLE_API_KEY = "AIzaSyBV9xHdsunjLlXR6M4DtlAjJ-8k6AOwD2k"
 def home(request):
     return render(request, 'home.html')
 
+@csrf_protect
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -58,6 +60,7 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
+@csrf_protect
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -95,7 +98,8 @@ def get_location_name(lat, lng):
             return location
 
         raise ValueError(
-            f"Geocoding API 오류: {data.get('status')} - {data.get('error_message', 'No additional information')}")
+            f"Geocoding API 오류: {data.get('status')} - {data.get('error_message', 'No additional information')}"
+        )
 
     except requests.exceptions.RequestException as e:
         raise ValueError(f"API 호출 오류: {e}")

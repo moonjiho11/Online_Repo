@@ -21,7 +21,15 @@
         </nav>
     </header>
     <main>
-        {% block content %}{% endblock %}
+        {% block content %}
+        <form method="post" action="/your-url/">
+            {% csrf_token %}
+            <!-- 폼 필드 -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <input type="submit" value="Submit">
+        </form>
+        {% endblock %}
     </main>
 </body>
 </html>

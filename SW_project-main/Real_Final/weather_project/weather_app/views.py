@@ -64,9 +64,11 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        if request.user.is_authenticated:
+            return redirect('weather')
         if user is not None:
             login(request, user)
-            return redirect('weather')
+          
         else:
             messages.error(request, "로그인 정보가 올바르지 않습니다.")
     return render(request, 'login.html')

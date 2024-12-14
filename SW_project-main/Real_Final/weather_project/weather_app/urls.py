@@ -8,4 +8,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('weather/', views.weather, name='weather'),
     path('get-weather-data', views.get_weather_data, name='get_weather_data'),
+    path('accounts/', include('django.contrib.auth.urls'
 ]

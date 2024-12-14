@@ -40,6 +40,7 @@ GOOGLE_API_KEY = "AIzaSyBV9xHdsunjLlXR6M4DtlAjJ-8k6AOwD2k"
 
 def home(request):
     return render(request, 'home.html')
+from django.views.decorators.csrf import csrf_protect
 
 def signup(request):
     if request.method == 'POST':

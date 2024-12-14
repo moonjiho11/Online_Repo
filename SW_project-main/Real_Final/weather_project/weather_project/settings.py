@@ -27,6 +27,7 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [ 'https://port-0-online-repo-m4mn6khjc2c41aa0.sel4.cloudtype.app' ]
 
 
 
